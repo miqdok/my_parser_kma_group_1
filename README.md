@@ -1,0 +1,24 @@
+# My Parser
+
+my parser for education purpose
+
+![Alt text](image-51.png)
+
+## Example
+
+```rust
+peg::parser!{
+    grammar list_parser() for str {
+      rule number() -> u32
+        = n:$(['0'..='9']+) {? n.parse().or(Err("u32")) }
+  
+      pub rule list() -> Vec<u32>
+        = "[" l:(number() ** ",") "]" { l }
+    }
+  }
+  
+  pub fn main() {
+      println!("{:?}", list_parser::list("[1,1,2,3,5,8]"));
+  }
+  
+```
